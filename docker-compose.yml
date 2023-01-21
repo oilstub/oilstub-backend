@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  backend:
+    hostname: backend
+    build:
+      context: .
+      target: dev-container
+    volumes:
+      - ./:/app/:delegated
+    working_dir: /app/oilstubdata
+    user: root
+    container_name: backend
+    ports:
+      - "8000:8000"
+    command: bash
+    networks:
+      - default
+
+  psql:
+    image: postgres:14-alpine
+    container_name: postgres
+    hostname: psql
+    environment:
+      - POSTGRES_PASSWORD=ubuntu
+      - POSTGRES_USER=ubuntu
+    networks:
+      - default
+    ports:
+      - "0.0.0.0:5432:5432/tcp"
+
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis
+    hostname: redis
+    networks:
+      - default
+    ports:
+      - "0.0.0.0:6379:6379/tcp"

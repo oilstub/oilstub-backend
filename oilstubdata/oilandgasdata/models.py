@@ -1,8 +1,10 @@
+from uuid import uuid4
+
 from django.db import models
 
 
 class TrackModel(models.Model):
-    import_id = models.CharField(max_length=128)
+    uuid = models.UUIDField(db_index=True, primary_key=True, default=uuid4)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -52,21 +54,21 @@ class GpCountyData(TrackModel):
     county_fips_code = models.CharField(max_length=20)
     district_no = models.CharField(max_length=50)
     on_shore_flag = models.CharField(max_length=20)
-    onshore_assc_cnty_flas = models.CharField(max_length=20)
+    onshore_assc_cnty_flag = models.CharField(max_length=20)
 
 
-class GpDataRangeCycle(TrackModel):
+class GpDateRangeCycleData(TrackModel):
     oldest_prod_cycle_year_month = models.CharField(max_length=20)
     newest_prod_cycle_year_month = models.CharField(max_length=20)
     newest_sched_cycle_year_month = models.CharField(max_length=20)
-    gas_extract_date = models.DateField()
-    oil_extract_date = models.DateField()
+    gas_extract_date = models.CharField(max_length=50)
+    oil_extract_date = models.CharField(max_length=50)
 
 
-class GpDistrict(TrackModel):
+class GpDistrictData(TrackModel):
     district_no = models.CharField(max_length=50)
     district_name = models.CharField(max_length=50)
-    office_phone = models.CharField(max_length=20)
+    office_phone_no = models.CharField(max_length=20)
     office_location = models.CharField(max_length=50)
 
 
@@ -77,7 +79,7 @@ class OgCountyCycleData(TrackModel):
     cycle_year = models.CharField(max_length=20)
     cycle_month = models.CharField(max_length=20)
     cycle_year_month = models.CharField(max_length=20)
-    cnty_oil_prod_vol = models.IntegerField
+    cnty_oil_prod_vol = models.IntegerField()
     cnty_oil_allow = models.CharField(max_length=20)
     cnty_oil_ending_bal = models.CharField(max_length=20)
     cnty_gas_prod_vol = models.CharField(max_length=20)
@@ -153,9 +155,9 @@ class OgFieldDwData(TrackModel):
     o_comments = models.CharField(max_length=50)
     g_comments = models.CharField(max_length=50)
     create_by = models.CharField(max_length=50)
-    create_dt = models.DateField()
+    create_dt = models.CharField(max_length=120)
     modify_by = models.CharField(max_length=50)
-    modify_dt = models.DateField()
+    modify_dt = models.CharField(max_length=120)
 
 
 class OgLeaseCycleData(TrackModel):
@@ -253,9 +255,9 @@ class OgOperatorDwData(TrackModel):
     efile_status_code = models.CharField(max_length=50)
     efile_effective_dt = models.CharField(max_length=50)
     create_by = models.CharField(max_length=50)
-    create_dt = models.DateField()
+    create_dt = models.CharField(max_length=120)
     modify_by = models.CharField(max_length=50)
-    modify_dt = models.DateField()
+    modify_dt = models.CharField(max_length=120)
 
 
 class OgRegulatorLeaseDwData(TrackModel):
@@ -313,7 +315,7 @@ class OgWellCompletionData(TrackModel):
     onshore_assc_cnty = models.CharField(max_length=50)
     oil_well_unit_no = models.CharField(max_length=50)
     well_root_no = models.CharField(max_length=50)
-    well_bore_shutin_dt = models.CharField(max_length=50)
+    wellbore_shutin_dt = models.CharField(max_length=50)
     well_shutin_dt = models.CharField(max_length=50)
     well_14b2_status_code = models.CharField(max_length=50)
     well_subject_14b2_flag = models.CharField(max_length=50)

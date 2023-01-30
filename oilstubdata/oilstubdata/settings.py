@@ -9,23 +9,30 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+import os
 
-from pathlib import Path
+from dotenv import load_dotenv
+from django.core.management.utils import get_random_secret_key
+
+from oilstubdata.utils_settings import load_env_file
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SETTINGS_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(SETTINGS_DIR, load_env_file()))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$g@j!cf7v*%&(1@+&5exer#r2ohal#%pjfo##ylf_h^svfkdne'
+SECRET_KEY = os.environ.get('SECRET_KEY', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,7 +46,8 @@ DEFAULT_APPS = [
 ]
 
 THIRD_PARTY_APP = [
-    'rest_framework'
+    'rest_framework',
+    'algoliasearch_django'
 ]
 
 LOCAL_APPS = [
@@ -137,6 +145,26 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+    'DATETIME_FORMAT': "%Y-%m-%dT%H:%M:%S.%fZ",
+}
+
+
+CELERY_BROKER_URL = "redis://redis"
+CELERY_RESULT_BACKEND = "redis://redis"
+CELERY_TASK_ACKS_LATE = True
+
+ALGOLIA = {
+    'APPLICATION_ID': os.environ.get('APPLICATION_ID', ''),
+    'API_KEY': os.environ.get('API_KEY', ''),
+    'AUTO_INDEXING': True
+}
 
 
 try:

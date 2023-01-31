@@ -132,4 +132,7 @@ dmypy.json
 .DS_Store/
 .__pycache__/
 local_settings
+
+Jupyter Notebook
+*.ipynb
 .DS_Store

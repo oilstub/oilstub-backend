@@ -9,3 +9,6 @@ redis==3.5.3
 django-environ==0.4.5
 google-cloud-secret-manager==2.6.0
 django-storages[google]==1.11.1
+pandas==1.5.3
+algoliasearch-django==2.0
+gunicorn>=20.1.0,<20.2

@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import io
 import os
-from pathlib import Path
 
 import environ
 import google.auth
@@ -19,7 +18,8 @@ from google.cloud import secretmanager
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -82,7 +82,8 @@ DEFAULT_APPS = [
 ]
 
 THIRD_PARTY_APP = [
-    'rest_framework'
+    'rest_framework',
+    'algoliasearch_django'
 ]
 
 LOCAL_APPS = [
@@ -180,6 +181,26 @@ GS_BUCKET_NAME = env("GS_BUCKET_NAME")
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+    'DATETIME_FORMAT': "%Y-%m-%dT%H:%M:%S.%fZ",
+}
+
+
+CELERY_BROKER_URL = "redis://redis"
+CELERY_RESULT_BACKEND = "redis://redis"
+CELERY_TASK_ACKS_LATE = True
+
+ALGOLIA = {
+    'APPLICATION_ID': os.environ.get('APPLICATION_ID', ''),
+    'API_KEY': os.environ.get('API_KEY', ''),
+    'AUTO_INDEXING': True
+}
 
 
 try:

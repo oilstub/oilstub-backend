@@ -19,7 +19,6 @@ services:
       - ./.env.prod
     networks:
       - default
-    restart: always
 
   # The proxy will help us connect to remote CloudSQL instance locally.
   # Make sure to turn off any VPNs for the proxy to work.

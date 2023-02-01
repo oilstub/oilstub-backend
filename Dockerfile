@@ -35,14 +35,12 @@ RUN apt-get update && \
 
 COPY --chown=pythonrunner:pythonrunner --from=builder /home/pythonrunner/.local /usr/local
 COPY --chown=pythonrunner:pythonrunner oilstubdata /app/
-COPY --chown=pythonrunner:pythonrunner .iac/uwsgi.ini /app/uwsgi.ini
+# COPY --chown=pythonrunner:pythonrunner .iac/uwsgi.ini /app/uwsgi.ini
 
 USER pythonrunner
-WORKDIR /app/stateagency
+WORKDIR /app/oilstubdata
 
-EXPOSE 8000
-
-CMD ["uwsgi", "--ini", "/app/uwsgi.ini"]
+CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 oilstubdata.wsgi:application
 
 FROM builder As dev-container
 
@@ -51,7 +49,7 @@ USER root
 COPY requirements.txt /tmp/requirements.txt
 RUN cp -r /home/pythonrunner/.local/* /usr/local
 
-WORKDIR /app/stateagency
+WORKDIR /app/oilstubdata
 USER pythonrunner
 
 CMD ["bash"]

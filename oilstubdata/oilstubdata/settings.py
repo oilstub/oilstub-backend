@@ -9,23 +9,66 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+import io
+import os
 
-from pathlib import Path
+import environ
+import google.auth
+from google.cloud import secretmanager
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+# Load environment variable
+env = environ.Env(
+    SECRET_KEY=(str, os.getenv("SECRET_KEY")),
+    DATABASE_URL=(str, os.getenv("DATABASE_URL")),
+    GS_BUCKET_NAME=(str, os.getenv("GS_BUCKET_NAME")),
+)
+
+# Attempt to load the Project ID into the environment, safely failing on error.
+try:
+    _, os.environ["GOOGLE_CLOUD_PROJECT"] = google.auth.default()
+except google.auth.exceptions.DefaultCredentialsError:
+    pass
+
+if os.getenv("GOOGLE_CLOUD_PROJECT", None):
+    project_id = os.getenv("GOOGLE_CLOUD_PROJECT")
+
+    client = secretmanager.SecretManagerServiceClient()
+    settings_name = os.getenv("SETTINGS_NAME", "oilstub-backend-settings")
+    name = f"projects/{project_id}/secrets/{settings_name}/versions/latest"
+    payload = client.access_secret_version(name=name).payload.data.decode(
+        "UTF-8"
+    )
+    env.read_env(io.StringIO(payload))
+else:
+    # raise Exception(
+    #     "No local .env or GOOGLE_CLOUD_PROJECT detected. No secrets found."
+    # )
+    pass
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$g@j!cf7v*%&(1@+&5exer#r2ohal#%pjfo##ylf_h^svfkdne'
+SECRET_KEY = env("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+# # DATABASES = {"default": env.db()}
+#
+# # If the flag as been set, configure to use proxy
+# if os.getenv("USE_CLOUD_SQL_AUTH_PROXY", None):
+#     DATABASES["default"]["HOST"] = "cloudsql-proxy"
+#     DATABASES["default"]["PORT"] = 5432
 
 
 # Application definition
@@ -39,7 +82,8 @@ DEFAULT_APPS = [
 ]
 
 THIRD_PARTY_APP = [
-    'rest_framework'
+    'rest_framework',
+    'algoliasearch_django'
 ]
 
 LOCAL_APPS = [
@@ -132,11 +176,31 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-
+GS_BUCKET_NAME = env("GS_BUCKET_NAME")
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+    'DATETIME_FORMAT': "%Y-%m-%dT%H:%M:%S.%fZ",
+}
+
+
+CELERY_BROKER_URL = "redis://redis"
+CELERY_RESULT_BACKEND = "redis://redis"
+CELERY_TASK_ACKS_LATE = True
+
+ALGOLIA = {
+    'APPLICATION_ID': os.environ.get('APPLICATION_ID', ''),
+    'API_KEY': os.environ.get('API_KEY', ''),
+    'AUTO_INDEXING': True
+}
 
 
 try:

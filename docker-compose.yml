@@ -8,33 +8,28 @@ services:
       target: prod-container
     volumes:
       - ./:/app/:delegated
+      - ./oilstubdata:/app/
       - ./creds.json:/secrets/creds.json
     working_dir: /app/oilstubdata
     user: root
     container_name: backend
     ports:
       - "8000:8000"
-    command: bash
+    env_file:
+      - ./.env.prod
     networks:
       - default
+    restart: always
 
-  psql:
-    image: postgres:14-alpine
-    container_name: postgres
-    hostname: psql
-    environment:
-      - POSTGRES_PASSWORD=ubuntu
-      - POSTGRES_USER=ubuntu
-    networks:
-      - default
-    ports:
-      - "0.0.0.0:5432:5432/tcp"
+  # The proxy will help us connect to remote CloudSQL instance locally.
+  # Make sure to turn off any VPNs for the proxy to work.
+  cloudsqlproxy:
+    container_name: cloudsql-proxy
+    image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
+    volumes:
+      - ./secrets:/secrets/cloudsql/
+    command: /cloud_sql_proxy -instances="oilstub-backend1:us-south1:oilstub-db"=tcp:0.0.0.0:5432 -credential_file=/secrets/cloudsql/creds.json
 
-  redis:
-    image: redis:6.2-alpine
-    container_name: redis
-    hostname: redis
-    networks:
-      - default
     ports:
-      - "0.0.0.0:6379:6379/tcp"
+      - 127.0.0.1:5432:5432
+    restart: always

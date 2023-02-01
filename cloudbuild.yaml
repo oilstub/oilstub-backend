@@ -8,7 +8,7 @@ steps:
       - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
       - .
       - '-f'
-      - Dockerfile-prod
+      - Dockerfile
     id: Build
 
   # 1. Docker push to Google Artifact Registry

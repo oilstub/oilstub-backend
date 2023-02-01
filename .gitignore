@@ -136,3 +136,5 @@ local_settings
 Jupyter Notebook
 *.ipynb
 .DS_Store
+.env.prod
+cred.json

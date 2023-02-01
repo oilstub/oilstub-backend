@@ -10,7 +10,7 @@ admin.autodiscover()
 urlpatterns = [
     path(
         r'upload_files/',
-        views.UploadOilStubDataView.as_view(),
+        admin.site.admin_view(views.UploadOilStubDataView.as_view()),
         name='upload_files'
     )
 ]

@@ -5,10 +5,9 @@ services:
     hostname: backend
     build:
       context: .
-      target: prod-container
+      target: dev-container
     volumes:
       - ./:/app/:delegated
-      - ./creds.json:/secrets/creds.json
     working_dir: /app/oilstubdata
     user: root
     container_name: backend

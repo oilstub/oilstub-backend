@@ -32,8 +32,9 @@ RUN apt-get update && \
     apt-get install -y \
     libpq-dev \
     libxml2 \
-
-ENV PATH="/home/pythonrunner/.local/bin:$PATH"
+    wget \
+    iputils-ping \
+    vim
 
 COPY --chown=pythonrunner:pythonrunner --from=builder /home/pythonrunner/.local /usr/local
 COPY --chown=pythonrunner:pythonrunner oilstubdata /app/

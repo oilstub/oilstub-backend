@@ -41,7 +41,11 @@ try:
 except google.auth.exceptions.DefaultCredentialsError:
     pass
 
-if os.getenv("GOOGLE_CLOUD_PROJECT", None):
+# Use local .env file in dev mode
+if os.getenv("PYTHON_ENV") == "dev":
+    DEBUG = True
+
+elif os.getenv("GOOGLE_CLOUD_PROJECT", None):
     project_id = os.getenv("GOOGLE_CLOUD_PROJECT")
 
     client = secretmanager.SecretManagerServiceClient()
@@ -52,9 +56,9 @@ if os.getenv("GOOGLE_CLOUD_PROJECT", None):
     )
     env.read_env(io.StringIO(payload))
 else:
-    # raise Exception(
-    #     "No local .env or GOOGLE_CLOUD_PROJECT detected. No secrets found."
-    # )
+    raise Exception(
+        "No local .env or GOOGLE_CLOUD_PROJECT detected. No secrets found."
+    )
     pass
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -125,18 +129,14 @@ WSGI_APPLICATION = 'oilstubdata.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+# Use django-environ to parse the connection string
+DATABASES = {"default": env.db()}
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        "HOST": "psql",
-        "NAME": "oilstub_db",
-        "PASSWORD": "ubuntu",
-        "PORT": "5432",
-        "USER": "ubuntu"
-    },
-}
+# If the flag as been set, configure to use proxy
+if os.getenv("USE_CLOUD_SQL_AUTH_PROXY", None):
+    DATABASES["default"]["HOST"] = "cloudsql-proxy"
+    DATABASES["default"]["PORT"] = 5432
+
 
 
 # Password validation
@@ -176,7 +176,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
 GS_BUCKET_NAME = env("GS_BUCKET_NAME")
+STATICFILES_DIRS = []
+DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+GS_DEFAULT_ACL = "publicRead"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

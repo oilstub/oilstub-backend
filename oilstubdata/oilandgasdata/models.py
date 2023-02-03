@@ -24,7 +24,7 @@ class OgCountyLeaseCycle(TrackModel):
     field_type = models.CharField(max_length=128)
     gas_well_no = models.CharField(max_length=20)
     prod_report_field_flag = models.CharField(max_length=128)
-    cnty_lse_oil_prod_vol = models.IntegerField
+    cnty_lse_oil_prod_vol = models.IntegerField()
     cnty_lse_oil_allow = models.CharField(max_length=20)
     cnty_lse_oil_ending_bal = models.CharField(max_length=20)
     cnty_lse_gas_prod_vol = models.CharField(max_length=20)
@@ -192,7 +192,6 @@ class OgLeaseCycleDisp(TrackModel):
     lease_oil_dispcd06_vol = models.CharField(max_length=128)
     lease_oil_dispcd07_vol = models.CharField(max_length=128)
     lease_oil_dispcd09_vol = models.CharField(max_length=128)
-    lease_oil_dispcd09_vol = models.CharField(max_length=128)
     lease_oil_dispcd99_vol = models.CharField(max_length=128)
     lease_gas_dispcd01_vol = models.CharField(max_length=128)
     lease_gas_dispcd02_vol = models.CharField(max_length=128)
@@ -244,20 +243,20 @@ class OgOperatorCycle(TrackModel):
 
 
 class OgOperatorDw(TrackModel):
-    operator_no = models.CharField(max_length=128)
-    operator_name = models.CharField(max_length=128)
-    p5_status_code = models.CharField(max_length=128)
-    p5_last_field_dt = models.CharField(max_length=128)
-    operator_tax_cert_flag = models.CharField(max_length=128)
-    operator_sb639_flag = models.CharField(max_length=128)
-    fa_option_code = models.CharField(max_length=128)
-    record_status_code = models.CharField(max_length=128)
-    efile_status_code = models.CharField(max_length=128)
-    efile_effective_dt = models.CharField(max_length=128)
-    create_by = models.CharField(max_length=128)
-    create_dt = models.CharField(max_length=120)
-    modify_by = models.CharField(max_length=128)
-    modify_dt = models.CharField(max_length=120)
+        operator_no = models.CharField(max_length=128)
+        operator_name = models.CharField(max_length=128)
+        p5_status_code = models.CharField(max_length=128)
+        p5_last_field_dt = models.CharField(max_length=128)
+        operator_tax_cert_flag = models.CharField(max_length=128)
+        operator_sb639_flag = models.CharField(max_length=128)
+        fa_option_code = models.CharField(max_length=128)
+        record_status_code = models.CharField(max_length=128)
+        efile_status_code = models.CharField(max_length=128)
+        efile_effective_dt = models.CharField(max_length=128)
+        create_by = models.CharField(max_length=128)
+        create_dt = models.CharField(max_length=120)
+        modify_by = models.CharField(max_length=128)
+        modify_dt = models.CharField(max_length=120)
 
 
 class OgRegulatoryLeaseDw(TrackModel):

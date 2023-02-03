@@ -13,7 +13,7 @@ from oilandgasdata.core.business_logic.search_oilstub_data import (
 
 
 def process_chunk(chunk, model):
-    for item in chunk.to_dict(dict='record'):
+    for item in chunk.to_dict('record'):
         item = {k.lower(): v for k, v in item.items()}
         instance = model(**item)
         instance.save()

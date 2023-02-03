@@ -136,9 +136,12 @@ local_settings
 Jupyter Notebook
 *.ipynb
 .DS_Store
+
+# App specific
+cloud_sql_proxy
+*.sqlite3
+.env
 .env.prod
 secrets/
-.env
 creds.json
-migrations/
 static/

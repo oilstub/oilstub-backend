@@ -1,8 +1,8 @@
 version: "3.8"
 
 services:
-  backend:
-    hostname: backend
+  local_backend:
+    hostname: local_backend
     build:
       context: .
       target: dev-container
@@ -10,12 +10,14 @@ services:
       - ./:/app/:delegated
     working_dir: /app/oilstubdata
     user: root
-    container_name: backend
+    container_name: local_backend
     ports:
       - "8000:8000"
     command: bash
     networks:
       - default
+    env_file:
+      - .env
 
   psql:
     image: postgres:14-alpine

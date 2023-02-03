@@ -16,14 +16,14 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - ./.env.prod
+      - .env
     networks:
       - default
 
   # The proxy will help us connect to remote CloudSQL instance locally.
   # Make sure to turn off any VPNs for the proxy to work.
-  cloudsqlproxy:
-    container_name: cloudsql-proxy
+  cloud_sql_proxy:
+    container_name: cloud_sql_proxy
     image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
     volumes:
       - ./secrets:/secrets/cloudsql/

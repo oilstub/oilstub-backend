@@ -86,14 +86,16 @@ DEFAULT_APPS = [
 ]
 
 THIRD_PARTY_APP = [
+    'django_elasticsearch_dsl',
     'rest_framework',
-    'algoliasearch_django'
+    'algoliasearch_django',
 ]
 
 LOCAL_APPS = [
     'accounts',
-    'oilandgasdata'
+    'oilandgasdata',
 ]
+
 INSTALLED_APPS = (DEFAULT_APPS + THIRD_PARTY_APP + LOCAL_APPS)
 
 
@@ -182,6 +184,8 @@ STATICFILES_DIRS = []
 DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 GS_DEFAULT_ACL = "publicRead"
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -193,6 +197,8 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 25,
     'DATETIME_FORMAT': "%Y-%m-%dT%H:%M:%S.%fZ",
 }
 
@@ -205,6 +211,15 @@ ALGOLIA = {
     'APPLICATION_ID': os.environ.get('APPLICATION_ID', ''),
     'API_KEY': os.environ.get('API_KEY', ''),
     'AUTO_INDEXING': True
+}
+
+# Elasticsearch
+# https://django-elasticsearch-dsl.readthedocs.io/en/latest/settings.html
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'eso1:9200'
+    },
 }
 
 

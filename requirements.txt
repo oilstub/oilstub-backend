@@ -12,3 +12,6 @@ django-storages[google]==1.11.1
 pandas==1.5.3
 algoliasearch-django==2.0
 gunicorn>=20.1.0,<20.2
+elasticsearch==7.14.0
+elasticsearch-dsl==7.4.0
+django-elasticsearch-dsl==7.2.2

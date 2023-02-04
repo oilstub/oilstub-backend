@@ -30,7 +30,7 @@ steps:
         docker build -f Dockerfile-proxy -t '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA-proxy' .
 
   # 3. Migrate
-  - name: "$'$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA-proxy'"
+  - name: "migrate"
     entrypoint: /bin/bash
     args:
       - '-i'

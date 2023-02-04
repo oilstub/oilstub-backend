@@ -36,7 +36,7 @@ steps:
       -  '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
       - '-s'
       - '${PROJECT_ID}:${_DEPLOY_REGION}:${_DB_INSTANCE}'
-      - echo '${PROJECT_ID}:${_DEPLOY_REGION}:${_DB_INSTANCE}'
+      - echo ${PROJECT_ID}:${_DEPLOY_REGION}:${_DB_INSTANCE}
       - '-e'
       - 'SETTINGS_NAME=${_SECRET_SETTINGS_NAME}'
       - '--'

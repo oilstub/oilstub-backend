@@ -79,7 +79,7 @@ steps:
 
 # Store images in Google Artifact Registry
 images:
-  - _IMAGE_NAME
+  - ${_IMAGE_NAME}
 
 tags:
   - gcp-cloud-build-deploy-cloud-run

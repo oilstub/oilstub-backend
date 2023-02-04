@@ -29,32 +29,18 @@ steps:
         COPY --from=gcr.io/cloudsql-docker/gce-proxy /cloud_sql_proxy /cloudsql/cloud_sql_proxy' > Dockerfile-proxy;
         docker build -f Dockerfile-proxy -t '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA' .
 
-  - id: "migrate"
-    name: '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
-    entrypoint: /bin/bash
+  # 3. Migrate
+  - name: gcr.io/google-appengine/exec-wrapper
     args:
-      - '-c'
-      - |
-        /cloudsql/cloud_sql_proxy -instances=${PROJECT_ID}:${_DEPLOY_REGION}:${_DB_INSTANCE}=tcp:5432 & sleep 2;
+      - '-i'
+      -  '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+      - '-s'
+      - /cloudsql/cloud_sql_proxy -instances=${PROJECT_ID}:${_DEPLOY_REGION}:${_DB_INSTANCE}=tcp:${_DATABASE_PORT} & sleep 2;
       - '--'
       - 'python'
       - 'manage.py'
       - 'migrate'
-
-#  # 3. Migrate
-#  - name: gcr.io/google-appengine/exec-wrapper
-#    args:
-#      - '-i'
-#      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
-#      - '-s'
-#      - '${PROJECT_ID}:${_DEPLOY_REGION}:${_DB_INSTANCE}'
-#      - '-e'
-#      - 'SETTINGS_NAME=${_SECRET_SETTINGS_NAME}'
-#      - '--'
-#      - 'python'
-#      - 'manage.py'
-#      - 'migrate'
-#    id: Migrate
+    id: Migrate
 
     # 4. Collect static
   - name: gcr.io/google-appengine/exec-wrapper

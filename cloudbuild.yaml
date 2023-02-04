@@ -5,7 +5,7 @@ steps:
       - build
       - '--no-cache'
       - '-t'
-      - $_IMAGE_NAME
+      - ${_IMAGE_NAME}
       - .
       - '-f'
       - Dockerfile
@@ -15,7 +15,7 @@ steps:
   - name: gcr.io/cloud-builders/docker
     args:
       - push
-      - $_IMAGE_NAME
+      - ${_IMAGE_NAME}
     id: Push
 
   # 2. Setup Cloudsql Proxy
@@ -34,7 +34,7 @@ steps:
     entrypoint: /bin/bash
     args:
       - '-i'
-      -  _IMAGE_NAME-proxy
+      -  ${_IMAGE_NAME}-proxy
       - '-s'
       - '${PROJECT_ID}:${_DEPLOY_REGION}:${_DB_INSTANCE}'
       - '-e'

@@ -37,7 +37,9 @@ RUN apt-get update && \
 COPY --chown=pythonrunner:pythonrunner --from=builder /home/pythonrunner/.local /usr/local
 COPY --chown=pythonrunner:pythonrunner oilstubdata /app/
 
-
+RUN wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+RUN chmod +x cloud_sql_proxy
+CMD ["sh", "-c", "./cloud_sql_proxy -instances=$CLOUD_SQL_CONNECTION_NAME=tcp:0.0.0.0:5432"]
 USER pythonrunner
 
 CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 oilstubdata.wsgi:application

@@ -6,11 +6,8 @@ WORKDIR /app
 
 RUN apt-get update && \
     apt-get install -y \
-    python3-dev \
     libpq-dev \
-    wget \
-    iputils-ping \
-    vim
+    libxml2
 
 USER pythonrunner
 
@@ -36,11 +33,12 @@ RUN apt-get update && \
     iputils-ping \
     vim
 
+
 COPY --chown=pythonrunner:pythonrunner --from=builder /home/pythonrunner/.local /usr/local
 COPY --chown=pythonrunner:pythonrunner oilstubdata /app/
 
+
 USER pythonrunner
-WORKDIR /app/oilstubdata
 
 CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 oilstubdata.wsgi:application
 

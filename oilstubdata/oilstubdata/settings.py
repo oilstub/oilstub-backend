@@ -86,6 +86,7 @@ DEFAULT_APPS = [
 ]
 
 THIRD_PARTY_APP = [
+    'storages',
     'django_elasticsearch_dsl',
     'rest_framework',
     'algoliasearch_django',
@@ -136,7 +137,7 @@ DATABASES = {"default": env.db()}
 
 # If the flag as been set, configure to use proxy
 if os.getenv("USE_CLOUD_SQL_AUTH_PROXY", None):
-    DATABASES["default"]["HOST"] = "cloudsql-proxy"
+    DATABASES["default"]["HOST"] = "cloud_sql_proxy"
     DATABASES["default"]["PORT"] = 5432
 
 

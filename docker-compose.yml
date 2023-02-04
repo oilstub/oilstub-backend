@@ -6,17 +6,17 @@ services:
     build:
       context: .
       target: prod-container
-    volumes:
-      - ./:/app/:delegated
-      - ./oilstubdata:/app/
-      - ./creds.json:/secrets/creds.json
-    working_dir: /app/oilstubdata
+#    volumes:
+#      - ./:/app/:delegated
+#      - ./oilstubdata:/app/
+#      - ./creds.json:/app/secrets/creds.json
+    working_dir: /app
     user: root
     container_name: backend
     ports:
       - "8000:8000"
     env_file:
-      - .env
+      - ./.env
     networks:
       - default
 

@@ -5,7 +5,7 @@ steps:
       - build
       - '--no-cache'
       - '-t'
-      - ${_IMAGE_NAME}
+      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
       - .
       - '-f'
       - Dockerfile
@@ -25,16 +25,16 @@ steps:
     args:
       - "-c"
       - |
-        echo "FROM $_IMAGE_NAME"
+        echo "FROM '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'"
         COPY --from=gcr.io/cloudsql-docker/gce-proxy /cloud_sql_proxy /cloudsql/cloud_sql_proxy" > Dockerfile-proxy;
-        docker build -f Dockerfile-proxy -t ${_IMAGE_NAME}-proxy .
+        docker build -f Dockerfile-proxy -t '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'-proxy .
 
   # 3. Migrate
-  - name: "${_IMAGE_NAME}-proxy"
+  - name: "$'$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'-proxy"
     entrypoint: /bin/bash
     args:
       - '-i'
-      -  ${_IMAGE_NAME}-proxy
+      -  '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'-proxy
       - '-s'
       - '${PROJECT_ID}:${_DEPLOY_REGION}:${_DB_INSTANCE}'
       - '-e'
@@ -79,11 +79,8 @@ steps:
 
 # Store images in Google Artifact Registry
 images:
-  - ${_IMAGE_NAME}
+  - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
 
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
-
-substitutions:
-  _IMAGE_NAME: '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'

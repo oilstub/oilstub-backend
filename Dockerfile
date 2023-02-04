@@ -35,7 +35,7 @@ RUN apt-get update && \
 
 
 COPY --chown=pythonrunner:pythonrunner --from=builder /home/pythonrunner/.local /usr/local
-COPY --chown=pythonrunner:pythonrunner oilstubdata /app/
+COPY --chown=pythonrunner:pythonrunner oilstubdata /app
 
 USER pythonrunner
 

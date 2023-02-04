@@ -19,7 +19,7 @@ steps:
     id: Push
 
   # 2. Make migrations
-  - name: gcr.io/google-appengine/exec-wrapper
+  - name: gcr.io/cloudsql-docker/gce-proxy:1.19.1
     args:
       - '-i'
       - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'

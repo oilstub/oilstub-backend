@@ -18,20 +18,16 @@ steps:
       - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
     id: Push
 
-  # 2. Make migrations
-  - name: gcr.io/cloudsql-docker/gce-proxy:1.19.1
+  # 2. Setup Cloudsql Proxy
+  - id: "layer  "
+    name: "gcr.io/cloud-builders/docker"
+    entrypoint: /bin/bash
     args:
-      - '-i'
-      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
-      - '-s'
-      - '${PROJECT_ID}:${_DEPLOY_REGION}:${_DB_INSTANCE}'
-      - '-e'
-      - 'SETTINGS_NAME=${_SECRET_SETTINGS_NAME}'
-      - '--'
-      - 'python'
-      - 'manage.py'
-      - 'makemigrations'
-    id: Make migrations
+      - "-c"
+      - |
+        echo "FROM $_IMAGE_NAME
+        COPY --from=gcr.io/cloudsql-docker/gce-proxy /cloud_sql_proxy /cloudsql/cloud_sql_proxy" > Dockerfile-proxy;
+        docker build -f Dockerfile-proxy -t ${_IMAGE_NAME}-proxy .
 
   # 3. Migrate
   - name: gcr.io/google-appengine/exec-wrapper

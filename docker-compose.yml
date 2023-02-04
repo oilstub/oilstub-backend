@@ -10,7 +10,7 @@ services:
 #      - ./:/app/:delegated
 #      - ./oilstubdata:/app/
 #      - ./creds.json:/app/secrets/creds.json
-    working_dir: /app
+    working_dir: /app/oilstubdata
     user: root
     container_name: backend
     ports:

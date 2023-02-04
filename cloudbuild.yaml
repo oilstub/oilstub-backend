@@ -35,7 +35,7 @@ steps:
       - '-i'
       -  '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
       - '-s'
-      - '${PROJECT_ID}:${_DEPLOY_REGION}:${_DB_INSTANCE}'
+      - /cloudsql/cloud_sql_proxy -instances=${PROJECT_ID}:${_DEPLOY_REGION}:${_DB_INSTANCE}=tcp:${_DATABASE_PORT} & sleep 2;
       - '-e'
       - 'SETTINGS_NAME=${_SECRET_SETTINGS_NAME}'
       - '--'

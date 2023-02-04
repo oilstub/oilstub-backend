@@ -25,12 +25,12 @@ steps:
     args:
       - "-c"
       - |
-        echo FROM '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+        echo FROM '${_IMAGE_NAME}
         COPY --from=gcr.io/cloudsql-docker/gce-proxy /cloud_sql_proxy /cloudsql/cloud_sql_proxy' > Dockerfile-proxy;
-        docker build -f Dockerfile-proxy -t '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'-proxy .
+        docker build -f Dockerfile-proxy -t ${_IMAGE_NAME}-proxy .
 
   # 3. Migrate
-  - name: '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'-proxy
+  - name: "${_IMAGE_NAME}-proxy"
     entrypoint: /bin/bash
     args:
       - '-c'
@@ -82,3 +82,7 @@ tags:
 
 options:
   logging: CLOUD_LOGGING_ONLY
+
+
+substitutions:
+  _IMAGE_NAME: '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'

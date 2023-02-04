@@ -31,11 +31,13 @@ steps:
 
   # 3. Migrate
   - name: gcr.io/google-appengine/exec-wrapper
+    entrypoint: /bin/bash
     args:
       - '-i'
       -  '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
       - '-s'
       - /cloudsql/cloud_sql_proxy -instances=${PROJECT_ID}:${_DEPLOY_REGION}:${_DB_INSTANCE}=tcp:${_DATABASE_PORT} & sleep 2;
+      - ls
       - '--'
       - 'python'
       - 'manage.py'

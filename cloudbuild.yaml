@@ -35,7 +35,7 @@ steps:
     args:
       - '-c'
       - |
-        /cloudsql/cloud_sql_proxy -instances=${PROJECT_ID}:${_DEPLOY_REGION}:${_DB_INSTANCE}=tcp:0.0.0.0:5432 & sleep 2;
+        /cloudsql/cloud_sql_proxy -instances=oilstub-backend1:us-south1:oilstub-db=tcp:0.0.0.0:5432 & sleep 2;
         
         python oilstubdata/manage.py migrate
     id: Migrate

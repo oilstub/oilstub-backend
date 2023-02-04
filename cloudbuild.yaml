@@ -30,7 +30,7 @@ steps:
         docker build -f Dockerfile-proxy -t '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA' .
 
   # 3. Migrate
-  - name: "migrate"
+  - name: gcr.io/google-appengine/exec-wrapper
     args:
       - '-i'
       -  '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'

@@ -2,13 +2,13 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.views import APIView
+# from rest_framework import status
+# from rest_framework.response import Response
+# from rest_framework.views import APIView
 
 from oilandgasdata.serializers import (
     UploadFileSerializer,
-    SearchSerializer
+    # SearchSerializer
 )
 
 

@@ -1,21 +1,21 @@
-import algoliasearch_django as algoliasearch
-
-from oilandgasdata.models import(
-    OgWellCompletion,
-    OgSummaryOnShoreLease,
-    OgSummaryMasterLarge,
-    GpCounty,
-    GpDistrict,
-    GpDateRangeCycle,
-    OgCountyCycle,
-    OgCountyLeaseCycle,
-    OgDistrictCycle,
-    OgFieldCycle,
-    OgFieldDw,
-    OgOperatorCycle,
-    OgOperatorDw,
-    OgRegulatoryLeaseDw,
-)
+# import algoliasearch_django as algoliasearch
+#
+# from oilandgasdata.models import(
+#     OgWellCompletion,
+#     OgSummaryOnShoreLease,
+#     OgSummaryMasterLarge,
+#     GpCounty,
+#     GpDistrict,
+#     GpDateRangeCycle,
+#     OgCountyCycle,
+#     OgCountyLeaseCycle,
+#     OgDistrictCycle,
+#     OgFieldCycle,
+#     OgFieldDw,
+#     OgOperatorCycle,
+#     OgOperatorDw,
+#     OgRegulatoryLeaseDw,
+# )
 
 # algoliasearch.register(OgCountyLeaseCycle)
 # algoliasearch.register(OgSummaryOnShoreLease)
@@ -24,7 +24,7 @@ from oilandgasdata.models import(
 # algoliasearch.register(GpCounty)
 # algoliasearch.register(GpDistrict)
 # algoliasearch.register(OgCountyCycle)
-algoliasearch.register(OgDistrictCycle)
+# algoliasearch.register(OgDistrictCycle)
 # algoliasearch.register(OgFieldCycle)
 # algoliasearch.register(OgFieldDw)
 # algoliasearch.register(OgOperatorCycle)

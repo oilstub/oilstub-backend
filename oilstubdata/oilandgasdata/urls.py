@@ -6,7 +6,6 @@ from oilandgasdata import views
 
 admin.autodiscover()
 
-
 urlpatterns = [
     path(
         r'upload_files/',

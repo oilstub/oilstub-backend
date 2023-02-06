@@ -16,14 +16,12 @@ import environ
 import google.auth
 from google.cloud import secretmanager
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -64,8 +62,10 @@ else:
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
 
-
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'https://oilstub-backend-prrtm2ky5q-uc.a.run.app',
+    'localhost'
+]
 
 # # DATABASES = {"default": env.db()}
 #
@@ -77,6 +77,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 DEFAULT_APPS = [
+    'override.apps.OverrideConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -87,18 +88,17 @@ DEFAULT_APPS = [
 
 THIRD_PARTY_APP = [
     'storages',
+    'algoliasearch_django',
     'django_elasticsearch_dsl',
     'rest_framework',
-    'algoliasearch_django',
 ]
 
 LOCAL_APPS = [
-    'accounts',
-    'oilandgasdata',
+    'accounts.apps.AccountConfig',
+    'oilandgasdata.apps.OilandgasdataConfig',
 ]
 
 INSTALLED_APPS = (DEFAULT_APPS + THIRD_PARTY_APP + LOCAL_APPS)
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -131,10 +131,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'oilstubdata.wsgi.application'
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://oilstub-backend-prrtm2ky5q-uc.a.run.app',
-    '216.239.38.53'
+    'https://oilstub-backend-prrtm2ky5q-uc.a.run.app'
 ]
-
 
 # Database
 # Use django-environ to parse the connection string
@@ -144,8 +142,6 @@ DATABASES = {"default": env.db()}
 if os.getenv("USE_CLOUD_SQL_AUTH_PROXY", None):
     DATABASES["default"]["HOST"] = "cloud_sql_proxy"
     DATABASES["default"]["PORT"] = 5432
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -167,7 +163,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'accounts.user'
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -179,7 +174,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
@@ -190,7 +184,6 @@ STATICFILES_DIRS = []
 DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 GS_DEFAULT_ACL = "publicRead"
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -207,7 +200,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 25,
     'DATETIME_FORMAT': "%Y-%m-%dT%H:%M:%S.%fZ",
 }
-
 
 CELERY_BROKER_URL = "redis://redis"
 CELERY_RESULT_BACKEND = "redis://redis"
@@ -227,7 +219,6 @@ ELASTICSEARCH_DSL = {
         'hosts': 'https://my-deployment-10b1c2.es.us-central1.gcp.cloud.es.io'
     },
 }
-
 
 try:
     from oilstubdata.local_settings import *

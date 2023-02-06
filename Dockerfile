@@ -41,15 +41,3 @@ USER pythonrunner
 
 CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 oilstubdata.wsgi:application
 
-FROM builder As dev-container
-
-USER root
-
-COPY requirements.txt /tmp/requirements.txt
-RUN cp -r /home/pythonrunner/.local/* /usr/local
-
-WORKDIR /app/oilstubdata
-USER pythonrunner
-
-CMD ["bash"]
-

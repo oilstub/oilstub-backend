@@ -39,5 +39,6 @@ COPY --chown=pythonrunner:pythonrunner oilstubdata /app
 
 USER pythonrunner
 
-CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 oilstubdata.wsgi:application
+CMD exec celery -A oilstubdata worker -Q celery --loglevel=info
 
+CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 oilstubdata.wsgi:application

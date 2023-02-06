@@ -65,7 +65,7 @@ else:
 SECRET_KEY = env("SECRET_KEY")
 
 
-ALLOWED_HOSTS = ['https://oilstub-backend-prrtm2ky5q-uc.a.run.app/']
+ALLOWED_HOSTS = ['*']
 
 # # DATABASES = {"default": env.db()}
 #

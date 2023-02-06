@@ -65,7 +65,7 @@ else:
 SECRET_KEY = env("SECRET_KEY")
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://oilstub-backend-prrtm2ky5q-uc.a.run.app/']
 
 # # DATABASES = {"default": env.db()}
 #
@@ -129,6 +129,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'oilstubdata.wsgi.application'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://oilstub-backend-prrtm2ky5q-uc.a.run.app/'
+]
 
 
 # Database

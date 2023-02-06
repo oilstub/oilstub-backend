@@ -131,7 +131,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'oilstubdata.wsgi.application'
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://oilstub-backend-prrtm2ky5q-uc.a.run.app/'
+    'https://oilstub-backend-prrtm2ky5q-uc.a.run.app',
+    '216.239.38.53'
 ]
 
 

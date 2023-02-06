@@ -219,7 +219,7 @@ ALGOLIA = {
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': 'eso1:9200'
+        'hosts': 'https://my-deployment-10b1c2.es.us-central1.gcp.cloud.es.io'
     },
 }
 

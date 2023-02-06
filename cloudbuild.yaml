@@ -1,35 +1,26 @@
 steps:
-  # 0. Docker Build
-  - name: gcr.io/cloud-builders/docker
-    args:
-      - build
-      - '--no-cache'
-      - '-t'
-      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
-      - .
-      - '-f'
-      - Dockerfile
-    id: Build
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "${_IMAGE_NAME}", "."]
+    id: build
 
   # 1. Docker push to Google Artifact Registry
   - name: gcr.io/cloud-builders/docker
-    args:
-      - push
-      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+    args: [ "push", "${_IMAGE_NAME}" ]
     id: Push
 
   # 2. Setup Cloudsql Proxy
-  - id: "layer  "
-    name: "gcr.io/cloud-builders/docker"
+  - name: "gcr.io/cloud-builders/docker"
     entrypoint: /bin/bash
     args:
       - "-c"
       - |
         echo FROM '${_IMAGE_NAME}
         COPY --from=gcr.io/cloudsql-docker/gce-proxy /cloud_sql_proxy /cloudsql/cloud_sql_proxy' > Dockerfile-proxy;
+        
         docker build -f Dockerfile-proxy -t ${_IMAGE_NAME}-proxy .
+    id: layer
 
-  # 3. Migrate
+  # 3. Migrate and collect static
   - name: "${_IMAGE_NAME}-proxy"
     entrypoint: /bin/bash
     args:
@@ -37,24 +28,13 @@ steps:
       - |
         /cloudsql/cloud_sql_proxy -instances='oilstub-backend1:us-south1:oilstub-db'=tcp:0.0.0.0:5432 & sleep 2;
         
-        python oilstubdata/manage.py migrate
-    id: Migrate
+        echo "🎸 migrate"
+        python manage.py migrate
+        
+        echo "📦 collect static"
+        python manage.py collectstatic --noinput
 
-    # 4. Collect static
-  - name: gcr.io/google-appengine/exec-wrapper
-    args:
-      - '-i'
-      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
-      - '-s'
-      - '${PROJECT_ID}:${_DEPLOY_REGION}:${_DB_INSTANCE}'
-      - '-e'
-      - 'SETTINGS_NAME=${_SECRET_SETTINGS_NAME}'
-      - '--'
-      - 'python'
-      - 'manage.py'
-      - 'collectstatic'
-      - '--no-input'
-    id: Collect static
+    id: Migrate
 
   # 5. Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'

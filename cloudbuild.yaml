@@ -28,7 +28,7 @@ steps:
       - |
         /cloudsql/cloud_sql_proxy -instances='oilstub-backend1:us-south1:oilstub-db'=tcp:0.0.0.0:5432 & sleep 2;
         
-        cd
+        cd oilstubdata
         
         echo "🎸 migrate"
         python manage.py migrate

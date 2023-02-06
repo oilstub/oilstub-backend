@@ -24,5 +24,5 @@ admin.site.enable_nav_sidebar = False
 urlpatterns = [
     path('api/v1/search/', views.SearchViewSet.as_view(), name='search'),
     path('oilandgasdata/', include(('oilandgasdata.urls', 'oilandgasdata'), namespace='oilandgasdata')),
-    path(rf'home', admin.site.urls),
+    path(rf'', admin.site.urls),
 ]

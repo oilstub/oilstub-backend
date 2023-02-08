@@ -179,6 +179,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+LOGIN_REDIRECT_URL = '/'
+
 GS_BUCKET_NAME = env("GS_BUCKET_NAME")
 STATICFILES_DIRS = []
 DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
@@ -201,13 +203,13 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': "%Y-%m-%dT%H:%M:%S.%fZ",
 }
 
-CELERY_BROKER_URL = "redis://redis"
-CELERY_RESULT_BACKEND = "redis://redis"
+CELERY_BROKER_URL = "redis://0.0.0.0:6379"
+CELERY_RESULT_BACKEND = "redis://0.0.0.0:6379"
 CELERY_TASK_ACKS_LATE = True
 
 ALGOLIA = {
-    'APPLICATION_ID': os.environ.get('APPLICATION_ID', ''),
-    'API_KEY': os.environ.get('API_KEY', ''),
+    'APPLICATION_ID': os.getenv('APPLICATION_ID', ''),
+    'API_KEY': os.getenv('API_KEY', ''),
     'AUTO_INDEXING': True
 }
 
@@ -216,7 +218,8 @@ ALGOLIA = {
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': 'https://my-deployment-10b1c2.es.us-central1.gcp.cloud.es.io'
+        'hosts': os.getenv("ES_HOST"),
+        'http_auth': (os.getenv("ES_USERNAME"), os.getenv("ES_PASSWORD"))
     },
 }
 

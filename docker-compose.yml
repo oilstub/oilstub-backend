@@ -20,6 +20,15 @@ services:
     networks:
       - default
 
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis
+    hostname: redis
+    networks:
+      - default
+    ports:
+      - "0.0.0.0:6379:6379/tcp"
+
   # The proxy will help us connect to remote CloudSQL instance locally.
   # Make sure to turn off any VPNs for the proxy to work.
   cloud_sql_proxy:

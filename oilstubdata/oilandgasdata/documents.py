@@ -26,7 +26,7 @@ class OgWellCompletionDocument(Document):
     name = 'OgWellCompletion'
 
     class Index:
-        name = 'Og_Well_Completion'
+        name = 'og_well_completion'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -61,7 +61,7 @@ class OgSummaryOnShoreLeaseDocument(Document):
     name = "OgSummaryOnShoreLease"
 
     class Index:
-        name = 'Og_Summary_OnShoreLease'
+        name = 'og_summary_onshorelease'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -91,7 +91,7 @@ class OgSummaryMasterLarge(Document):
     name = 'OgSummaryMasterLarge'
 
     class Index:
-        name = 'Og_Summary_Master_Large'
+        name = 'og_summary_master_large'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -121,7 +121,7 @@ class OgRegulatoryLeaseDwDocument(Document):
     name = 'OgRegulatoryLeaseDw'
 
     class Index:
-        name = 'Og_Regulatory_Lease_Dw'
+        name = 'og_regulatory_lease_dw'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -152,7 +152,7 @@ class OgOperatorDwDocument(Document):
     name = "OgOperatorDw"
 
     class Index:
-        name = 'Og_Operator_Dw'
+        name = 'og_operator_dw'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -185,7 +185,7 @@ class OgOperatorCycleDocument(Document):
     name = 'OgOperatorCycle'
 
     class Index:
-        name = 'Og_Operator_Cycle'
+        name = 'og_operator_cycle'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -213,7 +213,7 @@ class OgLeaseCycleDispDocument(Document):
     name = 'OgLeaseCycleDisp'
 
     class Index:
-        name = 'Og_LeaseCycle_Disp'
+        name = 'og_lease_cycle_disp'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -285,7 +285,7 @@ class OgLeaseCycleDocument(Document):
     name = 'OgLeaseCycle'
 
     class Index:
-        name = 'Og_Lease_Cycle'
+        name = 'og_lease_cycle'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -315,7 +315,7 @@ class OgFieldDwDocument(Document):
     name = 'OgFieldDw'
 
     class Index:
-        name = 'Og_Field_Dw'
+        name = 'og_field_dw'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -366,7 +366,7 @@ class OgDistrictCycleDocument(Document):
     name = 'OgDistrictCycle'
 
     class Index:
-        name = 'Og_District_Cycle'
+        name = 'og_district_cycle'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -394,7 +394,7 @@ class OgFieldCycleDocument(Document):
     name = 'OgFieldCycle'
 
     class Index:
-        name = 'Og_Field_Cycle'
+        name = 'og_field_cycle'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -424,7 +424,7 @@ class OgCountyCycleDocument(Document):
     name = 'OgCountyCycle'
 
     class Index:
-        name = 'Og_County_Cycle'
+        name = 'og_county_cycle'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -467,7 +467,7 @@ class GpDistrictDocument(Document):
     name = 'GpDistrict'
 
     class Index:
-        name = 'Gp_District'
+        name = 'gp_district'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -490,7 +490,7 @@ class GpDateRangeCycleDocument(Document):
     name = 'GpDateRangeCycle'
 
     class Index:
-        name = 'Gp_Date_Range_Cycle'
+        name = 'gp_date_range_cycle'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -514,7 +514,7 @@ class GpCountyDocument(Document):
     name = 'GpCounty'
 
     class Index:
-        name = 'Gp_County'
+        name = 'gp_county'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,
@@ -540,7 +540,7 @@ class OgCountyLeaseCycleDocument(Document):
     name = 'OgCountyLeaseCycle'
 
     class Index:
-        name = 'Og_County_Lease_Cycle'
+        name = 'og_county_lease_cycle'
         settings = {
             'number_of_shards': 1,
             'number_of_replicas': 0,

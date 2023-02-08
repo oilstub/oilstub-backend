@@ -29,6 +29,7 @@ RUN apt-get update && \
     apt-get install -y \
     libpq-dev \
     libxml2 \
+    redis-server \
     wget \
     iputils-ping \
     vim
@@ -39,6 +40,4 @@ COPY --chown=pythonrunner:pythonrunner oilstubdata /app
 
 USER pythonrunner
 
-CMD exec celery -A oilstubdata worker -Q celery --loglevel=info
-
-CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 oilstubdata.wsgi:application
+CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 oilstubdata.wsgi:application & service redis-server restart & celery -A oilstubdata worker -Q celery --loglevel=info

@@ -15,14 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth import views as auth_views #new
 
 from oilandgasdata import views
-
+from search import views as search_view
 admin.site.enable_nav_sidebar = False
 
 
 urlpatterns = [
     path('api/v1/search/', views.SearchViewSet.as_view(), name='search'),
+    path('', include('search.urls')),
     path('oilandgasdata/', include(('oilandgasdata.urls', 'oilandgasdata'), namespace='oilandgasdata')),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'), #new
     path(rf'', admin.site.urls),
 ]

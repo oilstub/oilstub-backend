@@ -30,7 +30,7 @@ class UploadOilStubDataView(View):
         serializer = UploadFileSerializer(data=request.FILES)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect('/')
 
 
 class SearchViewSet(APIView):

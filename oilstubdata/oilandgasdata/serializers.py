@@ -1,5 +1,3 @@
-import hashlib
-
 from django.core.files import File
 from django.core.files.storage import FileSystemStorage
 
@@ -27,3 +25,13 @@ class SearchSerializer(serializers.Serializer):
     def save(self):
         search_data = SearchData(self.validated_data.get("search_term", ''))
         return search_data.search_on_agolia()
+
+
+class GpCountySerializer(serializers.Serializer):
+    county_no = serializers.CharField(max_length=120)
+    district_name = serializers.CharField(max_length=128)
+    county_name = serializers.CharField(max_length=128)
+    county_fips_code = serializers.CharField(max_length=20)
+    district_no = serializers.CharField(max_length=128)
+    on_shore_flag = serializers.CharField(max_length=20)
+    onshore_assc_cnty_flag = serializers.CharField(max_length=20)

@@ -41,4 +41,6 @@ COPY --chown=pythonrunner:pythonrunner oilstubdata /app
 
 USER pythonrunner
 
+CMD exec systemctl --user enable redis-server.service
+
 CMD exec service redis-server restart & gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 oilstubdata.wsgi:application & celery -A oilstubdata worker -Q celery --loglevel=info

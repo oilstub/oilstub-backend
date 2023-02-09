@@ -9,13 +9,27 @@ class ElasticSearchQuery:
 
     def generate_q_expression(self):
         q = Q(
-            'multi_match',
-            query=self.search_term,
-            fields=[
-                'oil_gas_code', 'district_no', 'lease_no', 'county_no', 'operator_no' 'field_no' 'gas_well_no',
-                'district_name', 'lease_name', 'operator_name', 'field_name', 'county_name', 'county_fips_code',
-                'on_shore_flag', 'onshore_assc_cnty_flag', 'office_location', 'field_class', 'well_no',
-            ])
+            'bool',
+            should=[
+                Q('match', oil_gas_code=self.search_term),
+                Q('match', district_no=self.search_term),
+                Q('match', lease_no=self.search_term),
+                Q('match', county_no=self.search_term),
+                Q('match', operator_no=self.search_term),
+                Q('match', field_no=self.search_term),
+                Q('match', gas_well_no=self.search_term),
+                Q('match', district_name=self.search_term),
+                Q('match', lease_name=self.search_term),
+                Q('match', operator_name=self.search_term),
+                Q('match', field_name=self.search_term),
+                Q('match', county_name=self.search_term),
+                Q('match', county_fips_code=self.search_term),
+                Q('match', on_shore_flag=self.search_term),
+                Q('match', onshore_assc_cnty_flag=self.search_term),
+                Q('match', office_location=self.search_term),
+                Q('match', field_class=self.search_term),
+                Q('match', well_no=self.search_term),
+            ],
+            fuzziness='auto'
+        )
         return q
-
-

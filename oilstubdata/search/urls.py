@@ -2,9 +2,14 @@
 
 from django.urls import path
 
-from search.views import GpCountySearchView
+from search import views
+
+from rest_framework.routers import SimpleRouter
 
 
-urlpatterns = [
-    path('api/v2/search/<str:query>/', GpCountySearchView.as_view()),
-]
+router = SimpleRouter()
+router.register(
+    r'api/v2/search', basename='search',
+    viewset=views.GpCountySearchView
+)
+urlpatterns = router.urls

@@ -1,68 +1,61 @@
-import abc
+from django_elasticsearch_dsl_drf.constants import (
+    LOOKUP_FILTER_RANGE,
+    LOOKUP_QUERY_GT,
+    LOOKUP_QUERY_GTE,
+    LOOKUP_QUERY_IN,
+    LOOKUP_QUERY_LT,
+    LOOKUP_QUERY_LTE,
+    SUGGESTER_COMPLETION,
+)
+from django_elasticsearch_dsl_drf.filter_backends import (
+    DefaultOrderingFilterBackend,
+    FilteringFilterBackend,
+    CompoundSearchFilterBackend,
+    SuggesterFilterBackend,
+)
+from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
 
-from rest_framework import status
-from rest_framework.response import Response
-from django.http import HttpResponse
-from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.views import APIView
-
-from oilandgasdata.documents import OgDistrictCycleDocument, GpCountyDocument
-from oilandgasdata.serializers import GpCountySerializer
-from search.core.business_logics.elastic_search import ElasticSearchQuery
-from search.serializers import SearchSerializer
-
-
-class PaginatedElasticSearchAPIView(APIView, LimitOffsetPagination):
-    serializer_class = None
-    document_class = None
-
-    @abc.abstractmethod
-    def get_q_expression(self, query):
-        """This method should be overridden
-        and return a Q() expression."""
-
-    def get(self, request, query):
-        try:
-            q = self.get_q_expression(query)
-            search = self.document_class.search().query(q)
-            response = search.execute()
-
-            print(f'Found {response.hits.total.value} hit(s) for query: "{query}"')
-
-            results = self.paginate_queryset(response, request, view=self)
-            serializer = self.serializer_class(results, many=True)
-            return self.get_paginated_response(serializer.data)
-        except Exception as e:
-            return HttpResponse(e, status=500)
-
-#
-# class DistrictCycleSearchView(PaginatedElasticSearchAPIView):
-#     document_class = OgDistrictCycleDocument
-#
-#     def get_q_expression(self, query):
-#         return
+from oilandgasdata.documents import GpCountyDocument
+from search.serializers import GpCountyDocumentSerializer
 
 
-class GpCountySearchView(PaginatedElasticSearchAPIView):
-    serializer_class = GpCountySerializer
-    document_class = GpCountyDocument
+class GpCountySearchView(DocumentViewSet):
+    document = GpCountyDocument
+    serializer_class = GpCountyDocumentSerializer
+    ordering = ('created_at',)
 
-    def get_q_expression(self, query):
-        search_query = ElasticSearchQuery(query).generate_q_expression()
-        return search_query
+    filter_backends = [
+        DefaultOrderingFilterBackend,
+        FilteringFilterBackend,
+        CompoundSearchFilterBackend,
+        SuggesterFilterBackend,
+    ]
 
+    search_fields = (
+        'district_name',
+        'district_no',
+        'county_name',
+        'county_no'
+    )
 
-# class SearchViewSet(APIView):
-#     permission_classes = []
-#
-#     def post(self, request, *args, **kwargs):
-#         serializer = SearchSerializer(data=request.data, context={'request': request})
-#         if serializer.is_valid():
-#             response = serializer.save()
-#             return Response(response, status=status.HTTP_200_OK)
-#         return Response({"message": 'Invalid search term'}, status=status.HTTP_400_BAD_REQUEST)
+    filter_fields = {
+        'district_name': 'district_name',
+        'district_no': 'district_no',
+        'county_name': 'county_name',
+        'county_no': 'county_no'
+    }
 
-
-
+    suggester_fields = {
+        'district_name_suggest': {
+            'field': 'district_name.suggest',
+            'default_suggester': [
+                SUGGESTER_COMPLETION,
+            ],
+            'options': {
+                'size': 20,  # Override default number of suggestions
+                'skip_duplicates': True,  # Whether duplicate suggestions should be filtered out.
+            },
+        },
+    }
 
 

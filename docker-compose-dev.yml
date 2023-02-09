@@ -5,7 +5,7 @@ services:
     hostname: local_backend
     build:
       context: .
-      target: dev-container
+      target: prod-container
     volumes:
       - ./:/app/:delegated
     working_dir: /app/oilstubdata

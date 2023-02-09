@@ -512,6 +512,30 @@ class GpDateRangeCycleDocument(Document):
 @registry.register_document
 class GpCountyDocument(Document):
     name = 'GpCounty'
+    district_name = fields.TextField(
+        attr='district_name',
+        fields={
+            'suggest': fields.CompletionField(),
+        }
+    )
+    district_no = fields.TextField(
+        attr='district_no',
+        fields={
+            'suggest': fields.CompletionField(),
+        }
+    )
+    county_name = fields.TextField(
+        attr='county_name',
+        fields={
+            'suggest': fields.CompletionField(),
+        }
+    )
+    county_no = fields.TextField(
+        attr='county_no',
+        fields={
+            'suggest': fields.CompletionField(),
+        }
+    )
 
     class Index:
         name = 'gp_county'
@@ -525,11 +549,7 @@ class GpCountyDocument(Document):
         fields = [
 
             'created_at',
-            'county_no',
-            'district_name',
-            'county_name',
             'county_fips_code',
-            'district_no',
             'on_shore_flag',
             'onshore_assc_cnty_flag',
         ]
@@ -549,7 +569,6 @@ class OgCountyLeaseCycleDocument(Document):
     class Django:
         model = OgCountyLeaseCycle
         fields = [
-
             'created_at',
             'oil_gas_code',
             'district_no',

@@ -33,7 +33,9 @@ class GpCountySearchView(BaseDocumentView):
     ordering = ('created_at',)
 
     filter_backends = [
-        CompoundSearchFilterBackend
+        CompoundSearchFilterBackend,
+        FilteringFilterBackend,
+        SuggesterFilterBackend,
     ]
 
     search_fields = (
@@ -43,32 +45,12 @@ class GpCountySearchView(BaseDocumentView):
         'county_no'
     )
 
-
-class GpCountyFilterView(BaseDocumentView):
-    document = GpCountyDocument
-    serializer_class = GpCountyDocumentSerializer
-    ordering = ('created_at',)
-
-    filter_backends = [
-        FilteringFilterBackend
-    ]
-
     filter_fields = {
         'district_name': 'district_name',
         'district_no': 'district_no',
         'county_name': 'county_name',
         'county_no': 'county_no'
     }
-
-
-class GpCountyCompletionView(BaseDocumentView):
-    document = GpCountyDocument
-    serializer_class = GpCountyDocumentSerializer
-    ordering = ('created_at',)
-
-    filter_backends = [
-        SuggesterFilterBackend
-    ]
 
     suggester_fields = {
         'district_name': {
@@ -77,4 +59,25 @@ class GpCountyCompletionView(BaseDocumentView):
                 SUGGESTER_COMPLETION,
             ],
         },
+        'district_no': {
+            'field': 'district_no.suggest',
+            'default_suggester': [
+                SUGGESTER_COMPLETION,
+            ],
+        },
+
+        'county_no': {
+            'field': 'district_no.suggest',
+            'default_suggester': [
+                SUGGESTER_COMPLETION,
+            ],
+        },
+
+        'county_name': {
+            'field': 'district_name.suggest',
+            'default_suggester': [
+                SUGGESTER_COMPLETION,
+            ],
+        },
+
     }

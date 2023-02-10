@@ -425,4 +425,3 @@ class OgCountyLeaseCycleDocumentSerializer(DocumentSerializer):
             'cnty_lse_cond_tot_disp',
             'cnty_lse_csgd_tot_disp',
         )
-

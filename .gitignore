@@ -145,3 +145,4 @@ cloud_sql_proxy
 secrets/
 creds.json
 static/
+.DS_Store/

@@ -90,6 +90,7 @@ THIRD_PARTY_APP = [
     'storages',
     'algoliasearch_django',
     'django_elasticsearch_dsl',
+    'django_elasticsearch_dsl_drf',
     'rest_framework',
 ]
 

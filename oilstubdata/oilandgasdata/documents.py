@@ -25,6 +25,48 @@ from oilandgasdata.models import (
 class OgWellCompletionDocument(Document):
     name = 'OgWellCompletion'
 
+    district_name = fields.TextField(
+        attr='district_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    district_no = fields.TextField(
+        attr='district_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    county_name = fields.TextField(
+        attr='county_name',
+        fields={
+            'suggest': fields.CompletionField(),
+        }
+    )
+    county_no = fields.TextField(
+        attr='county_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    lease_no = fields.TextField(
+        attr='lease_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    well_no = fields.TextField(
+        attr='well_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+
     class Index:
         name = 'og_well_completion'
         settings = {
@@ -35,14 +77,8 @@ class OgWellCompletionDocument(Document):
     class Django:
         model = OgWellCompletion
         fields = [
-
             'created_at',
             'oil_gas_code',
-            "district_no",
-            "lease_no",
-            "well_no",
-            "district_name",
-            "county_name",
             "api_county_code",
             "api_unique_no",
             "onshore_assc_cnty",
@@ -60,6 +96,63 @@ class OgWellCompletionDocument(Document):
 class OgSummaryOnShoreLeaseDocument(Document):
     name = "OgSummaryOnShoreLease"
 
+    district_name = fields.TextField(
+        attr='district_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    district_no = fields.TextField(
+        attr='district_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    lease_name = fields.TextField(
+        attr='lease_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    lease_no = fields.TextField(
+        attr='lease_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_no = fields.TextField(
+        attr='field_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_name = fields.TextField(
+        attr='field_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    operator_no = fields.TextField(
+        attr='operator_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    operator_name = fields.TextField(
+        attr='operator_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+
     class Index:
         name = 'og_summary_onshorelease'
         settings = {
@@ -70,17 +163,8 @@ class OgSummaryOnShoreLeaseDocument(Document):
     class Django:
         model = OgSummaryOnShoreLease
         fields = [
-
             'created_at',
             'oil_gas_code',
-            "district_no",
-            "lease_no",
-            "operator_no",
-            "field_no",
-            "field_name",
-            "district_name",
-            "lease_name",
-            "operator_name",
             "cycle_year_month_min",
             "cycle_year_month_max",
         ]
@@ -89,6 +173,56 @@ class OgSummaryOnShoreLeaseDocument(Document):
 @registry.register_document
 class OgSummaryMasterLarge(Document):
     name = 'OgSummaryMasterLarge'
+
+    district_name = fields.TextField(
+        attr='district_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    district_no = fields.TextField(
+        attr='district_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    lease_no = fields.TextField(
+        attr='lease_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_no = fields.TextField(
+        attr='field_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_name = fields.TextField(
+        attr='field_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    operator_no = fields.TextField(
+        attr='operator_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    operator_name = fields.TextField(
+        attr='operator_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
 
     class Index:
         name = 'og_summary_master_large'
@@ -100,17 +234,8 @@ class OgSummaryMasterLarge(Document):
     class Django:
         model = OgSummaryMasterLarge
         fields = [
-
             'created_at',
             'oil_gas_code',
-            'district_no',
-            'lease_no',
-            'operator_no',
-            'field_no',
-            'field_name',
-            'district_name',
-            'lease_name',
-            'operator_name',
             'cycle_year_month_min',
             'cycle_year_month_max',
         ]
@@ -119,6 +244,70 @@ class OgSummaryMasterLarge(Document):
 @registry.register_document
 class OgRegulatoryLeaseDwDocument(Document):
     name = 'OgRegulatoryLeaseDw'
+
+    district_name = fields.TextField(
+        attr='district_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    district_no = fields.TextField(
+        attr='district_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    lease_name = fields.TextField(
+        attr='lease_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    lease_no = fields.TextField(
+        attr='lease_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_no = fields.TextField(
+        attr='field_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_name = fields.TextField(
+        attr='field_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    operator_no = fields.TextField(
+        attr='operator_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    operator_name = fields.TextField(
+        attr='operator_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    well_no = fields.TextField(
+        attr='well_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField()
+        }
+    )
 
     class Index:
         name = 'og_regulatory_lease_dw'
@@ -130,18 +319,8 @@ class OgRegulatoryLeaseDwDocument(Document):
     class Django:
         model = OgRegulatoryLeaseDw
         fields = [
-
             'created_at',
             'oil_gas_code',
-            'district_no',
-            'lease_no',
-            'operator_no',
-            'field_no',
-            'field_name',
-            'district_name',
-            'lease_name',
-            'operator_name',
-            'well_no',
             'lease_off_sched_flag',
             'lease_severance_flag',
         ]
@@ -150,6 +329,21 @@ class OgRegulatoryLeaseDwDocument(Document):
 @registry.register_document
 class OgOperatorDwDocument(Document):
     name = "OgOperatorDw"
+
+    operator_no = fields.TextField(
+        attr='operator_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    operator_name = fields.TextField(
+        attr='operator_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
 
     class Index:
         name = 'og_operator_dw'
@@ -161,12 +355,9 @@ class OgOperatorDwDocument(Document):
     class Django:
         model = OgOperatorDw
         fields = [
-
             'created_at',
-            'operator_no',
-            'operator_name',
             'p5_status_code',
-            'p5_last_field_dt',
+            'p5_last_filed_dt',
             'operator_tax_cert_flag',
             'operator_sb639_flag',
             'fa_option_code',
@@ -184,6 +375,21 @@ class OgOperatorDwDocument(Document):
 class OgOperatorCycleDocument(Document):
     name = 'OgOperatorCycle'
 
+    operator_no = fields.TextField(
+        attr='operator_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    operator_name = fields.TextField(
+        attr='operator_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+
     class Index:
         name = 'og_operator_cycle'
         settings = {
@@ -194,13 +400,10 @@ class OgOperatorCycleDocument(Document):
     class Django:
         model = OgOperatorCycle
         fields = [
-
             'created_at',
-            'operator_no',
             'cycle_year',
             'cycle_month',
             'cycle_year_month',
-            'operator_name',
             'oper_oil_prod_vol',
             'oper_gas_prod_vol',
             'oper_cond_prod_vol',
@@ -212,6 +415,63 @@ class OgOperatorCycleDocument(Document):
 class OgLeaseCycleDispDocument(Document):
     name = 'OgLeaseCycleDisp'
 
+    district_name = fields.TextField(
+        attr='district_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    district_no = fields.TextField(
+        attr='district_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    lease_name = fields.TextField(
+        attr='lease_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    lease_no = fields.TextField(
+        attr='lease_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_no = fields.TextField(
+        attr='field_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_name = fields.TextField(
+        attr='field_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    operator_no = fields.TextField(
+        attr='operator_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    operator_name = fields.TextField(
+        attr='operator_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+
     class Index:
         name = 'og_lease_cycle_disp'
         settings = {
@@ -222,13 +482,8 @@ class OgLeaseCycleDispDocument(Document):
     class Django:
         model = OgLeaseCycleDisp
         fields = [
-
             'created_at',
             'oil_gas_code',
-            'district_no',
-            'lease_no',
-            'operator_no',
-            'field_no',
             'cycle_year',
             'cycle_month',
             'cycle_year_month',
@@ -273,16 +528,69 @@ class OgLeaseCycleDispDocument(Document):
             'lease_csgd_dispcd08_vol',
             'lease_csgd_dispcd09_vol',
             'lease_csgd_dispcd99_vol',
-            'district_name',
-            'lease_name',
-            'operator_name',
-            'field_name',
         ]
 
 
 @registry.register_document
 class OgLeaseCycleDocument(Document):
     name = 'OgLeaseCycle'
+
+    district_name = fields.TextField(
+        attr='district_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    district_no = fields.TextField(
+        attr='district_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    lease_name = fields.TextField(
+        attr='lease_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    lease_no = fields.TextField(
+        attr='lease_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_no = fields.TextField(
+        attr='field_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_name = fields.TextField(
+        attr='field_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    operator_no = fields.TextField(
+        attr='operator_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    operator_name = fields.TextField(
+        attr='operator_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
 
     class Index:
         name = 'og_lease_cycle'
@@ -294,25 +602,45 @@ class OgLeaseCycleDocument(Document):
     class Django:
         model = OgLeaseCycle
         fields = [
-
             'created_at',
             'oil_gas_code',
-            'district_no',
-            'lease_no',
-            'operator_no',
-            'field_no',
             'cycle_year_month_min',
             'cycle_year_month_max',
-            'district_name',
-            'lease_name',
-            'operator_name',
-            'field_name',
         ]
 
 
 @registry.register_document
 class OgFieldDwDocument(Document):
     name = 'OgFieldDw'
+
+    district_name = fields.TextField(
+        attr='district_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    district_no = fields.TextField(
+        attr='district_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_no = fields.TextField(
+        attr='field_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_name = fields.TextField(
+        attr='field_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
 
     class Index:
         name = 'og_field_dw'
@@ -324,12 +652,7 @@ class OgFieldDwDocument(Document):
     class Django:
         model = OgFieldDw
         fields = [
-
             'created_at',
-            'field_no',
-            'field_name',
-            'district_no',
-            'district_name',
             'field_class',
             'field_h2s_flag',
             'field_manual_rev_flag',
@@ -365,6 +688,21 @@ class OgFieldDwDocument(Document):
 class OgDistrictCycleDocument(Document):
     name = 'OgDistrictCycle'
 
+    district_name = fields.TextField(
+        attr='district_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    district_no = fields.TextField(
+        attr='district_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+
     class Index:
         name = 'og_district_cycle'
         settings = {
@@ -375,10 +713,7 @@ class OgDistrictCycleDocument(Document):
     class Django:
         model = OgDistrictCycle
         fields = [
-
             'created_at',
-            'district_no',
-            'district_name',
             'cycle_year',
             'cycle_month',
             'cycle_year_month',
@@ -393,6 +728,35 @@ class OgDistrictCycleDocument(Document):
 class OgFieldCycleDocument(Document):
     name = 'OgFieldCycle'
 
+    district_name = fields.TextField(
+        attr='district_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    district_no = fields.TextField(
+        attr='district_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_no = fields.TextField(
+        attr='field_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_name = fields.TextField(
+        attr='field_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+
     class Index:
         name = 'og_field_cycle'
         settings = {
@@ -403,12 +767,7 @@ class OgFieldCycleDocument(Document):
     class Django:
         model = OgFieldCycle
         fields = [
-
             'created_at',
-            'field_no',
-            'field_name',
-            'district_no',
-            'district_name',
             'cycle_year',
             'cycle_month',
             'cycle_year_month',
@@ -423,6 +782,35 @@ class OgFieldCycleDocument(Document):
 class OgCountyCycleDocument(Document):
     name = 'OgCountyCycle'
 
+    district_name = fields.TextField(
+        attr='district_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    district_no = fields.TextField(
+        attr='district_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    county_no = fields.TextField(
+        attr='county_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    county_name = fields.TextField(
+        attr='county_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+
     class Index:
         name = 'og_county_cycle'
         settings = {
@@ -433,11 +821,7 @@ class OgCountyCycleDocument(Document):
     class Django:
         model = OgCountyCycle
         fields = [
-
             'created_at',
-            'county_no',
-            'district_no',
-            'district_name',
             'cycle_year',
             'cycle_month',
             'cycle_year_month',
@@ -457,7 +841,6 @@ class OgCountyCycleDocument(Document):
             'cnty_gas_tot_disp',
             'cnty_cond_tot_disp',
             'cnty_csgd_tot_disp',
-            'county_name',
             'oil_gas_code',
         ]
 
@@ -465,6 +848,21 @@ class OgCountyCycleDocument(Document):
 @registry.register_document
 class GpDistrictDocument(Document):
     name = 'GpDistrict'
+
+    district_name = fields.TextField(
+        attr='district_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    district_no = fields.TextField(
+        attr='district_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
 
     class Index:
         name = 'gp_district'
@@ -476,10 +874,7 @@ class GpDistrictDocument(Document):
     class Django:
         model = GpDistrict
         fields = [
-
             'created_at',
-            'district_no',
-            'district_name',
             'office_phone_no',
             'office_location',
         ]
@@ -499,7 +894,6 @@ class GpDateRangeCycleDocument(Document):
     class Django:
         model = GpDateRangeCycle
         fields = [
-
             'created_at',
             'oldest_prod_cycle_year_month',
             'newest_prod_cycle_year_month',
@@ -515,12 +909,14 @@ class GpCountyDocument(Document):
     district_name = fields.TextField(
         attr='district_name',
         fields={
+            'raw': fields.TextField(),
             'suggest': fields.CompletionField(),
         }
     )
     district_no = fields.TextField(
         attr='district_no',
         fields={
+            'raw': fields.TextField(),
             'suggest': fields.CompletionField(),
         }
     )
@@ -533,6 +929,7 @@ class GpCountyDocument(Document):
     county_no = fields.TextField(
         attr='county_no',
         fields={
+            'raw': fields.TextField(),
             'suggest': fields.CompletionField(),
         }
     )
@@ -547,7 +944,6 @@ class GpCountyDocument(Document):
     class Django:
         model = GpCounty
         fields = [
-
             'created_at',
             'county_fips_code',
             'on_shore_flag',
@@ -558,6 +954,80 @@ class GpCountyDocument(Document):
 @registry.register_document
 class OgCountyLeaseCycleDocument(Document):
     name = 'OgCountyLeaseCycle'
+
+    district_name = fields.TextField(
+        attr='district_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    district_no = fields.TextField(
+        attr='district_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+
+    lease_name = fields.TextField(
+        attr='lease_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    lease_no = fields.TextField(
+        attr='lease_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+
+    field_name = fields.TextField(
+        attr='field_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    field_no = fields.TextField(
+        attr='field_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+
+    county_name = fields.TextField(
+        attr='county_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    county_no = fields.TextField(
+        attr='county_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    operator_name = fields.TextField(
+        attr='operator_name',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    operator_no = fields.TextField(
+        attr='operator_no',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
 
     class Index:
         name = 'og_county_lease_cycle'
@@ -571,13 +1041,8 @@ class OgCountyLeaseCycleDocument(Document):
         fields = [
             'created_at',
             'oil_gas_code',
-            'district_no',
-            'lease_no',
             'cycle_year',
             'cycle_month',
-            'county_no',
-            'operator_no',
-            'field_no',
             'cycle_year_month',
             'field_type',
             'gas_well_no',
@@ -598,9 +1063,4 @@ class OgCountyLeaseCycleDocument(Document):
             'cnty_lse_gas_tot_disp',
             'cnty_lse_cond_tot_disp',
             'cnty_lse_csgd_tot_disp',
-            'district_name',
-            'lease_name',
-            'operator_name',
-            'field_name',
-            'county_name',
         ]

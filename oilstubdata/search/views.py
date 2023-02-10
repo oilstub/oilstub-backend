@@ -8,6 +8,7 @@ from django_elasticsearch_dsl_drf.constants import (
     SUGGESTER_COMPLETION,
 )
 from django_elasticsearch_dsl_drf.filter_backends import (
+    SearchFilterBackend,
     DefaultOrderingFilterBackend,
     FilteringFilterBackend,
     CompoundSearchFilterBackend,
@@ -19,16 +20,20 @@ from oilandgasdata.documents import GpCountyDocument
 from search.serializers import GpCountyDocumentSerializer
 
 
-class GpCountySearchView(DocumentViewSet):
+class BaseDocumentView(DocumentViewSet):
+    document = None
+    serializer_class = None
+
+    filter_backends = [DefaultOrderingFilterBackend]
+
+
+class GpCountySearchView(BaseDocumentView):
     document = GpCountyDocument
     serializer_class = GpCountyDocumentSerializer
     ordering = ('created_at',)
 
     filter_backends = [
-        DefaultOrderingFilterBackend,
-        FilteringFilterBackend,
-        CompoundSearchFilterBackend,
-        SuggesterFilterBackend,
+        CompoundSearchFilterBackend
     ]
 
     search_fields = (
@@ -38,6 +43,16 @@ class GpCountySearchView(DocumentViewSet):
         'county_no'
     )
 
+
+class GpCountyFilterView(BaseDocumentView):
+    document = GpCountyDocument
+    serializer_class = GpCountyDocumentSerializer
+    ordering = ('created_at',)
+
+    filter_backends = [
+        FilteringFilterBackend
+    ]
+
     filter_fields = {
         'district_name': 'district_name',
         'district_no': 'district_no',
@@ -45,17 +60,21 @@ class GpCountySearchView(DocumentViewSet):
         'county_no': 'county_no'
     }
 
+
+class GpCountyCompletionView(BaseDocumentView):
+    document = GpCountyDocument
+    serializer_class = GpCountyDocumentSerializer
+    ordering = ('created_at',)
+
+    filter_backends = [
+        SuggesterFilterBackend
+    ]
+
     suggester_fields = {
-        'district_name_suggest': {
+        'district_name': {
             'field': 'district_name.suggest',
             'default_suggester': [
                 SUGGESTER_COMPLETION,
             ],
-            'options': {
-                'size': 20,  # Override default number of suggestions
-                'skip_duplicates': True,  # Whether duplicate suggestions should be filtered out.
-            },
         },
     }
-
-

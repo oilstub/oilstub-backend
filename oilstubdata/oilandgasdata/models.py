@@ -246,7 +246,7 @@ class OgOperatorDw(TrackModel):
         operator_no = models.CharField(max_length=128)
         operator_name = models.CharField(max_length=128)
         p5_status_code = models.CharField(max_length=128)
-        p5_last_field_dt = models.CharField(max_length=128)
+        p5_last_filed_dt = models.CharField(max_length=128)
         operator_tax_cert_flag = models.CharField(max_length=128)
         operator_sb639_flag = models.CharField(max_length=128)
         fa_option_code = models.CharField(max_length=128)

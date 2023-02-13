@@ -17,11 +17,17 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
+from rest_framework import routers
+
+from search.urls import router as search_router
+
 admin.site.enable_nav_sidebar = False
+router = routers.DefaultRouter()
+router.registry.extend(search_router.registry)
 
 
 urlpatterns = [
-    path('', include('search.urls')),
+    path('api/', include(router.urls)),
     path('oilandgasdata/', include(('oilandgasdata.urls', 'oilandgasdata'), namespace='oilandgasdata')),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path(rf'', admin.site.urls),

@@ -884,6 +884,21 @@ class GpDistrictDocument(Document):
 class GpDateRangeCycleDocument(Document):
     name = 'GpDateRangeCycle'
 
+    gas_extract_date = fields.TextField(
+        attr='gas_extract_date',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+    oil_extract_date = fields.TextField(
+        attr='oil_extract_date',
+        fields={
+            'raw': fields.TextField(),
+            'suggest': fields.CompletionField(),
+        }
+    )
+
     class Index:
         name = 'gp_date_range_cycle'
         settings = {
@@ -897,9 +912,7 @@ class GpDateRangeCycleDocument(Document):
             'created_at',
             'oldest_prod_cycle_year_month',
             'newest_prod_cycle_year_month',
-            'newest_sched_cycle_year_month',
-            'gas_extract_date',
-            'oil_extract_date',
+            'newest_sched_cycle_year_month'
         ]
 
 

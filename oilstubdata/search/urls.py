@@ -4,7 +4,7 @@ from rest_framework.routers import SimpleRouter
 
 
 router = SimpleRouter()
-router.register(r'v1/search/gp-county-search', basename='gp-county-search', viewset=views.GpCountySearchView)
+router.register(r'v1/search/gp-county', basename='gp-county', viewset=views.GpCountySearchView)
 router.register(
     r'v1/search/og-well-completion', basename='og-well-completion',
     viewset=views.OgWellCompletionDocumentViewSet
@@ -63,5 +63,3 @@ router.register(
     viewset=views.OgCountyLeaseCycleDocumentViewSet
 )
 router.register(r'v1/search/og-lease-cycle', basename='og-lease-cycle', viewset=views.OgLeaseCycleDocumentViewSet)
-
-urlpatterns = router.urls

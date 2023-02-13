@@ -912,7 +912,7 @@ class GpDateRangeCycleDocument(Document):
             'created_at',
             'oldest_prod_cycle_year_month',
             'newest_prod_cycle_year_month',
-            'newest_sched_cycle_year_month'
+            'newest_sched_cycle_year_month',
         ]
 
 

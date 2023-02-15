@@ -43,23 +43,23 @@ router.register(
 router.register(r'v1/search/og-field-dw', basename='og-field-dw', viewset=views.OgFieldDwDocumentViewSet)
 
 router.register(
-    r'api/v1/search/og-district-cycle', basename='og-district-cycle',
+    r'v1/search/og-district-cycle', basename='og-district-cycle',
     viewset=views.OgDistrictCycleDocumentViewSet
 )
 
-router.register(r'api/v1/search/og-field-cycle', basename='og-field-cycle', viewset=views.OgFieldDwDocumentViewSet)
+router.register(r'v1/search/og-field-cycle', basename='og-field-cycle', viewset=views.OgFieldDwDocumentViewSet)
 
 router.register(
-    r'api/v1/search/og-county-cycle', basename='og-county-cycle',
+    r'v1/search/og-county-cycle', basename='og-county-cycle',
     viewset=views.OgCountyCycleDocumentViewSet
 )
 
-router.register(r'api/v1/search/gp-district', basename='gp-district', viewset=views.GpDistrictDocumentViewSet)
+router.register(r'v1/search/gp-district', basename='gp-district', viewset=views.GpDistrictDocumentViewSet)
 router.register(
-    r'api/v1/search/gp-date-range-cycle', basename='gp-date-range-cycle', viewset=views.GpDateRangeCycleDocumentViewSet
+    r'v1/search/gp-date-range-cycle', basename='gp-date-range-cycle', viewset=views.GpDateRangeCycleDocumentViewSet
 )
 router.register(
-    r'api/v1/search/og-county-lease-cycle', basename='og-county-lease-cycle',
+    r'v1/search/og-county-lease-cycle', basename='og-county-lease-cycle',
     viewset=views.OgCountyLeaseCycleDocumentViewSet
 )
 router.register(r'v1/search/og-lease-cycle', basename='og-lease-cycle', viewset=views.OgLeaseCycleDocumentViewSet)

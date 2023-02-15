@@ -32,7 +32,12 @@ RUN apt-get update && \
     redis-server \
     wget \
     iputils-ping \
-    vim
+    vim \
+    build-essential \
+    libssl-dev \
+    libffi-dev \
+    python3-dev \
+    python-dev
 
 
 COPY --chown=pythonrunner:pythonrunner --from=builder /home/pythonrunner/.local /usr/local

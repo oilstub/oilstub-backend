@@ -15,6 +15,7 @@ from django_elasticsearch_dsl_drf.filter_backends import (
     SuggesterFilterBackend,
 )
 from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
+from rest_framework import permissions
 
 from oilandgasdata.documents import (
     GpCountyDocument,
@@ -57,6 +58,7 @@ from search.serializers import (
 class BaseDocumentView(DocumentViewSet):
     document = None
     serializer_class = None
+    permission_classes = [permissions.IsAuthenticated]
     ordering = ('created_at',)
 
     filter_backends = [

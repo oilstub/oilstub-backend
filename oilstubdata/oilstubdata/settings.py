@@ -93,7 +93,7 @@ THIRD_PARTY_APP = [
     'algoliasearch_django',
     'django_elasticsearch_dsl',
     'django_elasticsearch_dsl_drf',
-    'corshearder',
+    'corshearders',
     'rest_framework',
     'knox',
 ]

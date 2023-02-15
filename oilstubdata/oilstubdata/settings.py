@@ -106,9 +106,9 @@ LOCAL_APPS = [
 INSTALLED_APPS = (DEFAULT_APPS + THIRD_PARTY_APP + LOCAL_APPS)
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -226,9 +226,10 @@ REST_KNOX = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8000',
     'https://oilstub-backend-prrtm2ky5q-uc.a.run.app',
-    'https://oilstub-steel.vercel.app'
+    'https://oilstub-steel.vercel.app',
+    'http://localhost:8000',
+    'http://localhost:3000'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True

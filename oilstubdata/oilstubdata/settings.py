@@ -93,7 +93,7 @@ THIRD_PARTY_APP = [
     'algoliasearch_django',
     'django_elasticsearch_dsl',
     'django_elasticsearch_dsl_drf',
-    'corshearders',
+    'corsheaders',
     'rest_framework',
     'knox',
 ]
@@ -106,7 +106,7 @@ LOCAL_APPS = [
 INSTALLED_APPS = (DEFAULT_APPS + THIRD_PARTY_APP + LOCAL_APPS)
 
 MIDDLEWARE = [
-    'corshearders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

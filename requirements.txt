@@ -19,3 +19,4 @@ django-elasticsearch-dsl-drf==0.22.5
 django-filter==2.1.0
 redis
 django-rest-knox==4.2.0
+django-cors-headers==3.13.0

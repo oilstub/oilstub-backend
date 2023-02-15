@@ -14,6 +14,7 @@ import os
 from datetime import timedelta
 
 import environ
+from corsheaders.defaults import default_headers
 import google.auth
 from google.cloud import secretmanager
 
@@ -92,6 +93,7 @@ THIRD_PARTY_APP = [
     'algoliasearch_django',
     'django_elasticsearch_dsl',
     'django_elasticsearch_dsl_drf',
+    'corshearder',
     'rest_framework',
     'knox',
 ]
@@ -104,6 +106,7 @@ LOCAL_APPS = [
 INSTALLED_APPS = (DEFAULT_APPS + THIRD_PARTY_APP + LOCAL_APPS)
 
 MIDDLEWARE = [
+    'corshearders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -230,6 +233,7 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_HEADERS = list(default_headers)
 
 CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
 

@@ -218,9 +218,21 @@ REST_KNOX = {
     'AUTH_TOKEN_CHARACTER_LENGTH': 64,
     'TOKEN_TTL': timedelta(hours=2),
     'USER_SERIALIZER': 'knox.serializers.UserSerializer',
-    'TOKEN_LIMIT_PER_USER': 3,
+    'TOKEN_LIMIT_PER_USER': 10,
     'AUTO_REFRESH': True,
 }
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',
+    'https://oilstub-backend-prrtm2ky5q-uc.a.run.app',
+    'https://oilstub-steel.vercel.app/'
+]
+
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ORIGIN_ALLOW_ALL = False
+
+CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
+
 
 CELERY_BROKER_URL = "redis://127.0.0.1:6379"
 CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379"

@@ -226,9 +226,9 @@ REST_KNOX = {
 }
 
 CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',
     'https://oilstub-backend-prrtm2ky5q-uc.a.run.app',
     'https://oilstub-steel.vercel.app',
-    'http://localhost:8000',
     'http://localhost:3000'
 ]
 

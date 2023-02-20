@@ -26,7 +26,7 @@ router.register(
 )
 
 router.register(
-    r'v1/search/og-regulatory-dw', basename='og-regulatory-dw',
+    r'v1/search/og-operator-dw', basename='og-operator-dw',
     viewset=views.OgOperatorDwDocumentViewSet
 )
 
